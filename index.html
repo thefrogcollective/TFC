@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <title>TFC White Paper</title>
+    <style>
+        body {
+            margin: 0;
+            background: black;
+            overflow-y: hidden;
+        }
+        canvas#app {
+            width: 954px;
+            height: 933px;
+            background: rgb(0, 0, 0);
+            margin: 0;
+            padding: 0;
+        }
+        iframe#iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        #tsparticles {
+            height: 100vh;
+            width: 100vw;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+        iframe#csgo-antiscam-content-popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 99999;
+        }
+        /* Fix for the "iframe" tag */
+        iframe:not([id]) {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        /* Vendor prefix for user-select */
+        body {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+    </style>
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+</head>
+<body>
+    <div id="tsparticles"></div>
+    <canvas id="app"></canvas>
+    <iframe id="iframe" src="/white-paper-tfc.pdf"></iframe>
+    <iframe id="csgo-antiscam-content-popup" src="chrome-extension://AmcoikpeL/contentPopup.html?domain=https://github.com/thefrogcollective/TFC/"></iframe>
+    <script src="/GPUFluid.js"></script>
+    <script>
+        // Check if screen is mobile size
+        var isMobile = window.matchMedia("only screen and (max-width: 768px)").matches;
+        // Check if there is a mouse
+        var hasMouse = false;
+        document.onmousemove = function () {
+            hasMouse = true;
+        };
+        var done = false;
+        var s = setInterval(function () {
+            if (done || (!isMobile && !hasMouse)) {
+                done = true;
+                clearInterval(s);
+                if (isMobile || hasMouse) {
+                    // Redirect to ./white-paper-tfc.pdf
+                    window.location.href = "https://drive.google.com/file/d/16FJnVogkreC1cPdZbj6chXQYfvkQZDqA/view?usp=sharing";
+                }
+            }
+        }, 100);
+    </script>
+</body>
+</html>
